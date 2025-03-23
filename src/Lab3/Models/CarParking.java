@@ -1,8 +1,10 @@
 package Lab3.Models;
 
+import java.io.*;
 import java.time.LocalDate;
 
-public class CarParking {
+// зміни до лабораторної роботи №4
+public class CarParking implements Serializable, Comparable<CarParking> {
     private String brand;
     private String model;
     private String lastNameOwner;
@@ -12,6 +14,8 @@ public class CarParking {
     private boolean parkingPresence; // наявність авто на стоянці
     private LocalDate stopParking; // час заїзду на стоянку
     private LocalDate leaveParking; // час виїзду зі стоянки
+
+    private static final long serialVersionUID = 1L;
 
     public String getBrand() {
         return brand;
@@ -69,5 +73,14 @@ public class CarParking {
     public String toString() {
         return brand + ", " + model + ", " + lastNameOwner + ", " + addressOwner + ", " + carNumber + ", " +
                 parkingNumber + ", " + parkingPresence /* + ", " + stopParking + ", " + leaveParking */;
+    }
+
+    @Override
+    public int compareTo(CarParking another) {
+        int result = parkingNumber - another.getParkingNumber();
+
+        if(result == 0) System.out.println("Неможливе перебування двох машин на одному парковочному місці");
+
+        return result;
     }
 }
